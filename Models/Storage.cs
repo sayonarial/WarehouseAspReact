@@ -12,6 +12,7 @@ namespace WarehouseAspReact.Models
         public string Title { get; set; } = string.Empty;
 
         public List<Storage> ChildStorages { get; set; } = new List<Storage>();
-        public int? StorageId { get; set; } = null;
+        
+        public Storage ParrentStorage { get; set; }
     }
 }

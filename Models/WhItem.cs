@@ -24,6 +24,9 @@ namespace WarehouseAspReact.Models
 
         public DateTime TimeUpdated { get; set; } = DateTime.Now;
 
+        [NotMapped]
+        public string ImageSrc { get; set; }
+
         [Required]
         public int OwnerId { get; set; }
 

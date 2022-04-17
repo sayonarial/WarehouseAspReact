@@ -21,7 +21,7 @@ export default class ItemsServise {
     static async removeItem(item){
         const response = await axios.delete(
             (BASE_URL + '/WhItems/' + item.id)
-        )
+        ) 
         return response.data
     }
 

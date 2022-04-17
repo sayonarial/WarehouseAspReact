@@ -13,12 +13,13 @@ import Login from './components/login';
 
 import { useState, createContext } from "react";
 import { AuthContext } from './context';
+import { Redirect } from 'react-router-dom';
 const UserContext = createContext()
 
 
 const App = (props) => {
 
-  const [isAuth, setIsAuth] = useState(true);
+  const [isAuth, setIsAuth] = useState(false);
 
     return (
       <AuthContext.Provider value = {{
@@ -26,12 +27,21 @@ const App = (props) => {
         setIsAuth
       }}>
         <Layout>
-          <Route exact path='/' component={Home} />
-          <Route path='/counter' component={Counter} />
-          <Route path='/fetch-data' component={FetchData} />
-          <Route path='/items' component={UserDashBoard} />
-          <Route path='/register' component={Register} />
-          <Route path='/login' component={Login} />
+          {isAuth ?
+          <>
+            <Route exact path='/' component={Home} />
+            <Route path='/items' component={UserDashBoard} />
+            <Route path='/login' component={Login} />
+            
+          </> 
+          :
+          <>
+            <Route exact path='/' component={Home} />
+            <Route path='/register' component={Register} />
+            <Route path='/login' component={Login} />
+            
+          </>
+          }
         </Layout>
       </AuthContext.Provider>
 

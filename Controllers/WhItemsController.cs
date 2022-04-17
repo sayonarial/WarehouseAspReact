@@ -27,7 +27,18 @@ namespace WarehouseAspReact.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<WhItem>>> GetWhItems()
         {
-            return await _context.WhItems.ToListAsync();
+            return await _context.WhItems
+                .Select(x => new WhItem()
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    ImageName = x.ImageName,
+                    SerialNumber = x.SerialNumber,
+                    TimeCreated = x.TimeCreated,
+                    TimeUpdated = x.TimeUpdated,
+                    ImageSrc = String.Format("{0}://{1}{2}/Images/{3}",Request.Scheme,Request.Host,Request.PathBase,x.ImageName)
+                })
+                .ToListAsync();
         }
 
         // GET: api/WhItems/5
