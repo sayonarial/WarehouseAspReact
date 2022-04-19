@@ -40,10 +40,9 @@ const NavMenu = (props) => {
               : (
                 <ul className="navbar-nav flex-grow">
                   <NavLink
-                    onClick={() => setIsAuth(true)}
-                    // tag={Link}
+                    tag={Link}
                     className="btn"
-                  // to="/login"
+                   to="/login"
                   >Log In</NavLink>
                 </ul>
               )
