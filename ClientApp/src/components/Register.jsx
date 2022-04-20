@@ -1,9 +1,7 @@
 import axios from "axios";
 import { useRef, useState, useEffect } from "react"
-
-//const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
-//const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
-//const USE = '/register';
+import AuthService from "../api/AuthService";
+import { Redirect } from 'react-router-dom';
 
 
 
@@ -18,6 +16,7 @@ const Register = () => {
     const [errMsg, setErrMsg] = useState('');
     const [success, setSuccess] = useState(false);
 
+
     // Focus on username
     useEffect(() => {
         userRef.current.focus();
@@ -31,13 +30,7 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('/register',
-                JSON.stringify({ username, password }),
-                {
-                    headers: { 'Content-type': 'application/json' },
-                    withCredentials: true
-                }
-            );
+            await AuthService.registerUser(username, password);
             setSuccess(true);
             setUsername('');
             setPassword('');
@@ -55,6 +48,7 @@ const Register = () => {
 
     return (
         <section class="vh-100">
+            {success ? <Redirect push to="/login"/> : null}
             <div class="container-fluid h-custom">
                 <div class="row d-flex justify-content-center align-items-center h-100">
                     <div class="col-md-9 col-lg-6 col-xl-5">

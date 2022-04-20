@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const BASE_URL = 'https://localhost:7224/api/Auth';
 
-export default class AuthServise {
+export default class AuthService {
 
     static async validateUser(username, password) {
 
@@ -10,8 +10,11 @@ export default class AuthServise {
             (BASE_URL + '/login'),
             JSON.stringify({ username, password }),
             {
-                headers: { 'Content-type': 'application/json' },
-                withCredentials: 'include'
+                headers: { 
+                    'Content-type': 'application/json',
+                    
+                },
+                withCredentials: true
             }
 
         );
@@ -20,20 +23,17 @@ export default class AuthServise {
     }
 
     static async registerUser(username, password) {
-        try {
-            const response = await axios.post(
-                (BASE_URL + '/register'),
-                JSON.stringify({ username, password }),
-                {
-                    headers: { 'Content-type': 'application/json' },
-                    withCredentials: true
-                }
 
-            );
-            return response.data
-        } catch (error) {
-            return error
-        }
+        const response = await axios.post(
+            (BASE_URL + '/register'),
+            JSON.stringify({ username, password }),
+            {
+                headers: { 'Content-type': 'application/json' },
+                withCredentials: true
+            }
+
+        );
+        return response.data
 
     }
 

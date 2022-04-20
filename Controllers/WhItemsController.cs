@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -90,9 +91,32 @@ namespace WarehouseAspReact.Controllers
         // POST: api/WhItems
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<WhItem>> PostWhItem(WhItem whItem)
         {
-            _context.WhItems.Add(whItem);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = _context.Users.Find(Int32.Parse(userId));
+            if (user == null)
+            {
+                return NotFound("No user");
+            }
+
+            var newItem = new WhItem
+            {
+                Title = whItem.Title,
+                Description = whItem.Description,
+                ImageName = "",
+                ImageSrc = "",
+                TimeCreated = DateTime.Now,
+                TimeUpdated = DateTime.Now,
+                SerialNumber = whItem.SerialNumber,
+                Quantity = whItem.Quantity,
+                Weight = whItem.Weight,
+                UserId = user.Id,
+            };
+            
+       
+            _context.WhItems.Add(newItem);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetWhItem", new { id = whItem.Id }, whItem);

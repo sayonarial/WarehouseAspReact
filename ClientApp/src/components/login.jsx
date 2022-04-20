@@ -25,8 +25,13 @@ const Login = () => {
             setIsAuth(true);
             setRedirect(true)
 
-        } catch (error) {
-            setErrorMessage(error.response.data)
+        } catch (err) {
+            if (!err?.response) {
+                setErrorMessage('No Server Response');
+            }
+            else {
+                setErrorMessage(err.response.data);
+            }
         }
     }
 

@@ -12,8 +12,8 @@ using WarehouseAspReact.Models;
 namespace WarehouseAspReact.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220402134841_user_changes")]
-    partial class user_changes
+    [Migration("20220420025011_relationship changes")]
+    partial class relationshipchanges
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,7 +24,34 @@ namespace WarehouseAspReact.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("WarehouseAspReact.Models.UserModel", b =>
+            modelBuilder.Entity("WarehouseAspReact.Models.Storage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int?>("StorageId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StorageId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Storages");
+                });
+
+            modelBuilder.Entity("WarehouseAspReact.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -67,9 +94,6 @@ namespace WarehouseAspReact.Migrations
                     b.Property<string>("ImageName")
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("OwnerId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
@@ -86,9 +110,51 @@ namespace WarehouseAspReact.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Weight")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("WhItems");
+                });
+
+            modelBuilder.Entity("WarehouseAspReact.Models.Storage", b =>
+                {
+                    b.HasOne("WarehouseAspReact.Models.Storage", null)
+                        .WithMany("ChildStorages")
+                        .HasForeignKey("StorageId");
+
+                    b.HasOne("WarehouseAspReact.Models.User", null)
+                        .WithMany("Storages")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("WarehouseAspReact.Models.WhItem", b =>
+                {
+                    b.HasOne("WarehouseAspReact.Models.User", null)
+                        .WithMany("Items")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("WarehouseAspReact.Models.Storage", b =>
+                {
+                    b.Navigation("ChildStorages");
+                });
+
+            modelBuilder.Entity("WarehouseAspReact.Models.User", b =>
+                {
+                    b.Navigation("Items");
+
+                    b.Navigation("Storages");
                 });
 #pragma warning restore 612, 618
         }

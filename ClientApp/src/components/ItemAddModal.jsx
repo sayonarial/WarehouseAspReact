@@ -7,7 +7,7 @@ const ItemAddModal = ({ active, setActive, save}) => {
         title: '',
         description: '',
         quantity: '',
-        serialNumber: null,
+        serialNumber: 0,
         weight: 0,
         lastUpdated: Date.now(),
         imageName: ''

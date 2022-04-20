@@ -3,7 +3,6 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WarehouseAspReact.Models;
 
@@ -12,10 +11,9 @@ using WarehouseAspReact.Models;
 namespace WarehouseAspReact.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220420002928_User has Items")]
-    partial class UserhasItems
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,7 +30,7 @@ namespace WarehouseAspReact.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("StorageId")
+                    b.Property<int?>("StorageId")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -94,9 +92,6 @@ namespace WarehouseAspReact.Migrations
                     b.Property<string>("ImageName")
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("OwnerId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
@@ -113,7 +108,7 @@ namespace WarehouseAspReact.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.Property<int>("Weight")
@@ -130,9 +125,7 @@ namespace WarehouseAspReact.Migrations
                 {
                     b.HasOne("WarehouseAspReact.Models.Storage", null)
                         .WithMany("ChildStorages")
-                        .HasForeignKey("StorageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("StorageId");
 
                     b.HasOne("WarehouseAspReact.Models.User", null)
                         .WithMany("Storages")
@@ -145,7 +138,9 @@ namespace WarehouseAspReact.Migrations
                 {
                     b.HasOne("WarehouseAspReact.Models.User", null)
                         .WithMany("Items")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("WarehouseAspReact.Models.Storage", b =>

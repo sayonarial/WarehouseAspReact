@@ -33,8 +33,8 @@ const ItemsTable = () => {
             setItemsList(itemsList.filter(p => p.id !== item.id))
         } catch (error) {
             setIsError(true);
-            setErrorMessage(error.response.data.title)
-            console.log(error.response)
+            setErrorMessage(error.response.data.title);
+            console.log(error.response);
         }
 
     }

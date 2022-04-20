@@ -85,7 +85,7 @@ namespace WarehouseAspReact.Controllers
         public async Task<ActionResult<User>> GetUser()
         {
 
-            var userName = User.FindFirstValue(ClaimTypes.Name); // will give the user's userName
+            var userName = User.FindFirstValue(ClaimTypes.NameIdentifier); // will give the user's userName
             
 
 
@@ -108,7 +108,8 @@ namespace WarehouseAspReact.Controllers
             List<Claim> claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.Username),
-                new Claim(ClaimTypes.Role, "Admin")
+                new Claim(ClaimTypes.Role, "Admin"),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
             };
             var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(
                 _configuration.GetSection("Keys:JwtToken").Value));

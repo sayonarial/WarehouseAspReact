@@ -3,9 +3,15 @@ import axios from 'axios';
 const BASE_URL = 'https://localhost:7224/api';
 
 export default class ItemsServise {
+
     static async getAllItems(){
         const response = await axios.get(
-            (BASE_URL + '/WhItems')
+            (BASE_URL + '/WhItems'),
+            {
+                headers: { 
+                    'Content-type': 'application/json',},
+                withCredentials: true
+            }
         )
         return response.data
     }
@@ -13,7 +19,14 @@ export default class ItemsServise {
     static async addItem(item){
         const response = await axios.post(
             (BASE_URL + '/WhItems'),
-            item
+            item,
+            {
+                headers: { 
+                    'Content-type': 'application/json',},
+                withCredentials: true
+            },
+            
+
         )
         return response.data
     }

@@ -27,13 +27,11 @@ namespace WarehouseAspReact.Models
         [NotMapped]
         public string ImageSrc { get; set; } = string.Empty;
 
-        [Required]
-        public int OwnerId { get; set; }
-
         public int Quantity { get; set; } = 0;
 
         public int Weight { get; set; } = 0;
 
+        public int UserId { get; set; }
 
     }
 }
