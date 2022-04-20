@@ -25,6 +25,7 @@ namespace WarehouseAspReact.Controllers
 
         // GET: api/WhItems
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<WhItem>>> GetWhItems()
         {
             return await _context.WhItems

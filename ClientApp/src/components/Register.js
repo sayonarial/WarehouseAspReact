@@ -101,7 +101,10 @@ const Register = () => {
                                 </div>
 
                                 <div class="text-center text-lg-start mt-4 pt-2">
-                                    <button type="submit" class="btn btn-primary btn-lg"
+                                    <button 
+                                        type="submit"
+                                        class="btn btn-primary btn-lg"
+                                        onClick={handleSubmit}
 
                                     >Register</button>
                                     <p class="small fw-bold mt-2 pt-1 mb-0">Already have an account? <a href="/login"

@@ -1,6 +1,6 @@
 import { map } from "jquery"
 import { useEffect, useMemo, useState } from "react"
-import { OverlayTrigger, Tooltip, Button } from "react-bootstrap"
+import { OverlayTrigger, Tooltip, Button, Row } from "react-bootstrap"
 import Filter from "./SearchInput"
 import ItemAddModal from "./ItemAddModal"
 import SearchInput from "./SearchInput"
@@ -13,7 +13,7 @@ const ItemsTable = () => {
     const [itemsList, setItemsList] = useState([])
 
     const [search, setSearch] = useState('');
-    
+
     const [pickedItem, setPickedItem] = useState([]);
     const [modalDetails, setModalDetails] = useState(false);
     const [modalCreate, setModalCreate] = useState(false);
@@ -75,21 +75,32 @@ const ItemsTable = () => {
                 :
                 <></>
             }
-            <Button
-                onClick={() => setModalCreate(true)}
-            >Add New
-            </Button>
-
             <ItemAddModal
                 active={modalCreate}
                 setActive={setModalCreate}
                 save={createItem}
             />
 
-            <SearchInput
-                value={search}
-                setValue={setSearch}
-            />
+            <div class="row">
+
+                <Button
+                    className="col col-lg-2 mr-3"
+                    onClick={() => setModalCreate(true)}
+                >Add New
+                </Button>
+
+                <input
+                    value={search}
+                    onInput={(e) => setSearch(e.target.value)}
+                    className="form-control col col-xs-1 mr-3"
+                    type="search"
+                    placeholder="Search"
+                    aria-label="Search" />
+
+
+
+            </div>
+
 
             {isItemsLoading ?
 

@@ -29,6 +29,7 @@ const NavMenu = (props) => {
             {isAuth ? (
               <ul className="navbar-nav flex-grow">
                 <NavLink tag={Link} className="" to="/items">My Items</NavLink>
+                <NavLink tag={Link} className="" to="/Account">Account</NavLink>
                 <NavLink
                   onClick={() => setIsAuth(false)}
                   // tag={Link}

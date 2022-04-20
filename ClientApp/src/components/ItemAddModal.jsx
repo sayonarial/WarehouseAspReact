@@ -7,7 +7,11 @@ const ItemAddModal = ({ active, setActive, save}) => {
         title: '',
         description: '',
         quantity: '',
-        lastUpdated: Date.now()
+        serialNumber: null,
+        weight: 0,
+        lastUpdated: Date.now(),
+        imageName: ''
+        
     })
 
     const handleClose = () => setActive(false);

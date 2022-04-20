@@ -24,6 +24,8 @@ namespace WarehouseAspReact.Models
 
         public List<Storage> Storages { get; set; } = new List<Storage>();
 
+        public List<WhItem> Items { get; set; } = new List<WhItem>();
+
     }
 }
    

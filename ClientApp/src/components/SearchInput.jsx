@@ -1,10 +1,10 @@
-const SearchInput = ({value, setValue}) => {
+const SearchInput = ({ value, setValue }) => {
 
     return (
-         <input 
+        <input
             value={value}
-            onInput={(e) => setValue(e.target.value) }
-            class="form-control mr-sm-2"
+            onInput={(e) => setValue(e.target.value)}
+            className="form-control col-xs-2"
             type="search"
             placeholder="Search"
             aria-label="Search" />

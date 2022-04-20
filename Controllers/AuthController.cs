@@ -15,7 +15,7 @@ namespace WarehouseAspReact.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-      
+
         private readonly byte[] passwordSalt = Encoding.UTF8.GetBytes("__03030840dfksjfs9d++9343rsdfagJjgDKl';sp[opil2937490-");
         private readonly IConfiguration _configuration;
         private readonly ApplicationDbContext _context;
@@ -34,7 +34,7 @@ namespace WarehouseAspReact.Controllers
             {
                 return BadRequest($"Username \"{request.Username}\" already exists!");
             }
-            if (String.IsNullOrEmpty(request.Password)) 
+            if (String.IsNullOrEmpty(request.Password))
             {
                 return BadRequest("Missing password");
             }
@@ -55,7 +55,7 @@ namespace WarehouseAspReact.Controllers
         public async Task<ActionResult<User>> Login(UserDto request)
         {
 
-            
+
             if (!UserExists(request.Username) || String.IsNullOrEmpty(request.Username))
             {
                 return BadRequest("User not found.");
@@ -77,16 +77,20 @@ namespace WarehouseAspReact.Controllers
                 HttpOnly = true
             });
 
-            return Ok();
+            return Ok(token);
         }
 
-        //[HttpGet("user")]
-        //public async Task<ActionResult<UserModel>> User()
-        //{
-        //    var jwt = Request.Cookies["jwt"];
+        [HttpGet("user")]
+        [Authorize]
+        public async Task<ActionResult<User>> GetUser()
+        {
+
+            var userName = User.FindFirstValue(ClaimTypes.Name); // will give the user's userName
             
-        //    return Ok(jwt);
-        //}  
+
+
+            return Ok(userName);
+        }
 
 
 

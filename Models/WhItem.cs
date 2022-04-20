@@ -25,13 +25,14 @@ namespace WarehouseAspReact.Models
         public DateTime TimeUpdated { get; set; } = DateTime.Now;
 
         [NotMapped]
-        public string ImageSrc { get; set; }
+        public string ImageSrc { get; set; } = string.Empty;
 
         [Required]
         public int OwnerId { get; set; }
 
         public int Quantity { get; set; } = 0;
 
+        public int Weight { get; set; } = 0;
 
 
     }
